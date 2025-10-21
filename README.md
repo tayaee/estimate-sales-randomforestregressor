@@ -46,11 +46,13 @@ Follow these steps to set up the environment, train the model, and run the web a
     ```
     Find out at models/1.0.0.joblib
 
-3. Run the demo app (streamlit version). Use browser to test with http://localhost:7860
+### 4. Test
+
+1. Run the demo app (streamlit version). Use browser to test with http://localhost:7860
     ```
     web1.bat
     ```
-4. OR, run another demo app (gradio version). Use browser to test with http://localhost:8501
+2. OR, run another demo app (gradio version). Use browser to test with http://localhost:8501
 
     ```
     web2.bat
