@@ -1,0 +1,16 @@
+pydantic
+
+# Machine Learning Core
+scikit-learn
+pandas
+numpy
+joblib
+
+# CLI
+click
+
+# Streamlit App
+streamlit
+
+# Gradio App
+gradio

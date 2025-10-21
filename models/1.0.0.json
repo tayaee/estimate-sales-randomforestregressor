@@ -1,0 +1,28 @@
+{
+    "model_details": {
+        "type": "ml",
+        "algorithm": "RandomForestRegressor",
+        "library": "scikit-learn",
+        "library_version": "1.7.2",
+        "timestamp_utc": "2025-10-21T02:01:49.513817",
+        "joblib_version": "1.5.2"
+    },
+    "data_schema": {
+        "features": [
+            "Advertising Expenditure",
+            "Campaign Engagement Score",
+            "Discount Percentage",
+            "Product Price"
+        ],
+        "target": "Sales"
+    },
+    "equation": "Sales = RandomForestRegressor(votes from multiple trees)",
+    "hyperparameters": {
+        "rf__max_depth": 5,
+        "rf__n_estimators": 100
+    },
+    "model_files": {
+        "model_path": "1.0.0.joblib",
+        "metadata_path": "1.0.0.json"
+    }
+}
