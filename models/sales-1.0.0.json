@@ -4,7 +4,7 @@
         "algorithm": "RandomForestRegressor",
         "library": "scikit-learn",
         "library_version": "1.7.2",
-        "timestamp_utc": "2025-10-21T02:01:49.513817",
+        "timestamp_utc": "2025-10-21T13:56:30.531131",
         "joblib_version": "1.5.2"
     },
     "data_schema": {
@@ -22,7 +22,7 @@
         "rf__n_estimators": 100
     },
     "model_files": {
-        "model_path": "1.0.0.joblib",
-        "metadata_path": "1.0.0.json"
+        "model_path": "sales-1.0.0.joblib",
+        "metadata_path": "sales-1.0.0.json"
     }
 }

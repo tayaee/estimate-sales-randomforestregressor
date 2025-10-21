@@ -4,7 +4,7 @@ import pandas as pd
 from joblib import load
 from ut_model import ModelInfo, load_model_info_from_json
 
-MODEL_VERSION = "1.0.0"
+MODEL_VERSION = "sales-1.0.0"
 METADATA_PATH = f"models/{MODEL_VERSION}.json"
 MODEL_PATH = f"models/{MODEL_VERSION}.joblib"
 
