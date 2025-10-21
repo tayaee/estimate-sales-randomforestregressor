@@ -1,13 +1,13 @@
 pydantic
 
+# CLI
+click
+
 # Machine Learning Core
 scikit-learn
 pandas
 numpy
 joblib
-
-# CLI
-click
 
 # Streamlit App
 streamlit

@@ -28,24 +28,27 @@ Follow these steps to set up the environment, train the model, and run the web a
 2. Install uv
 
 ### 2. Clone repo
-
+    ```
     git clone <URL>
-
+    ```
 ### 3. One time per clone
 
 1. Create .venv
-
-    ```bash
+    ```
     uv venv
+    ```
+2. Install dependencies
+    ```
     uv sync
     ```
-
-2. Train a model (optional, a pre-trained model is available at models/1.0.0.joblib)
+3. Activate venv
+    ```
+    .venv\Scripts\activate.bat
+    ```
+4. (Optional) Train a model (optional, a pre-trained model is available at models/1.0.0.joblib)
     ```
     train_model.bat
     ```
-    Find out at models/1.0.0.joblib
-
 ### 4. Test
 
 1. Run the demo app (streamlit version). Use browser to test with http://localhost:7860

@@ -9,11 +9,9 @@ from ut_model import ModelInfo, load_model_info_from_json
 MODEL_VERSION = "1.0.0"
 METADATA_PATH = f"models/{MODEL_VERSION}.json"
 MODEL_PATH = f"models/{MODEL_VERSION}.joblib"
-
 FEATURE_NAMES: list[str] = []
 TARGET_NAME: str = "Volume"
 model_info: ModelInfo | None = None
-
 try:
     if os.path.exists(METADATA_PATH):
         model_info = load_model_info_from_json(METADATA_PATH)
@@ -29,7 +27,6 @@ except Exception as e:
 
 @st.cache_resource
 def load_ml_model():
-    """Loads the model file."""
     if os.path.exists(MODEL_PATH):
         try:
             return load(MODEL_PATH)
@@ -40,41 +37,26 @@ def load_ml_model():
     st.stop()
 
 
-if __name__ == "__main__":
-    model = load_ml_model()
-
-    st.set_page_config(layout="wide", page_title=f"Estimate {TARGET_NAME} using RandomForestRegressor")
-    st.title(f"Estimate {TARGET_NAME} using RandomForestRegressor")
-
-    st.markdown(f"Adjust the input features below to predict the **{TARGET_NAME}** volume.")
-
-    # Input fields in the main container (no sidebar)
-    input_data = {}
-    st.subheader("Input Features")
-
-    # Use hardcoded min/max/default values as sales data loading was removed
-    for feature in FEATURE_NAMES:
-        input_data[feature] = st.slider(
-            f"{feature}",
-            min_value=0.0,
-            max_value=1000.0,
-            value=500.0,
-            step=0.1,
-            format="%.2f",
-        )
-
-    # Prediction Button
-    if st.button("Predict"):
-        # Create input DataFrame
-        features_df = pd.DataFrame([input_data])
-
-        # Perform prediction
-        try:
-            prediction = model.predict(features_df)[0]
-
-            # Display Prediction Result
-            st.subheader("Prediction Result")
-            st.metric(label=f"Predicted {TARGET_NAME}", value=f"{prediction:.2f} units")
-
-        except Exception as e:
-            st.error(f"Prediction Error: {e}")
+model = load_ml_model()
+st.set_page_config(layout="wide", page_title=f"Estimate {TARGET_NAME} using ML Model")
+st.title(f"Estimate {TARGET_NAME} using Machine Learning Model")
+st.markdown(f"Adjust the input features below to predict the **{TARGET_NAME}** volume.")
+input_data = {}
+st.subheader("Input Features")
+for feature in FEATURE_NAMES:
+    input_data[feature] = st.slider(
+        f"{feature}",
+        min_value=0.0,
+        max_value=1000.0,
+        value=500.0,
+        step=0.1,
+        format="%.2f",
+    )
+if st.button("Predict"):
+    features_df = pd.DataFrame([input_data])
+    try:
+        prediction = model.predict(features_df)[0]
+        st.subheader("Prediction Result")
+        st.metric(label=f"Predicted {TARGET_NAME}", value=f"{prediction:.2f} units")
+    except Exception as e:
+        st.error(f"Prediction Error: {e}")

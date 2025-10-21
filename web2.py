@@ -1,9 +1,7 @@
 import os
-
 import gradio as gr
 import pandas as pd
 from joblib import load
-
 from ut_model import ModelInfo, load_model_info_from_json
 
 MODEL_VERSION = "1.0.0"
@@ -19,34 +17,34 @@ try:
         model_info = load_model_info_from_json(METADATA_PATH)
         FEATURE_NAMES = model_info.data_schema.features
         TARGET_NAME = model_info.data_schema.target
-        print(f"Loaded metadata. Features: {FEATURE_NAMES}, Target: {TARGET_NAME}")
+        print(f"Meta loaded. F:{len(FEATURE_NAMES)}, T:{TARGET_NAME}")
     else:
-        print(f"Model metadata file not found at: {METADATA_PATH}. Gradio will not start with proper features.")
+        print(f"Meta not found: {METADATA_PATH}. Gradio starting without features.")
 except Exception as e:
-    print(f"Error loading model metadata: {e}. Gradio will use empty feature list.")
+    print(f"Meta load err: {e}. Empty features used.")
 
 
 model = None
 try:
     if os.path.exists(MODEL_PATH):
         model = load(MODEL_PATH)
-        print(f"Model successfully loaded from: {MODEL_PATH}")
+        print(f"Model loaded: {MODEL_PATH}")
     else:
-        print(f"Model file not found: {MODEL_PATH}. Prediction function will fail.")
+        print(f"Model not found: {MODEL_PATH}. Prediction will fail.")
 except Exception as e:
     model = None
-    print(f"Error loading model: {e}")
+    print(f"Model load error: {e}")
 
 
 def predict_sales(*args):
     if not FEATURE_NAMES:
-        return "ERROR: Feature names were not loaded from metadata. Cannot perform prediction."
+        return "ERROR: Features missing. Cannot predict."
 
     if model is None:
-        return "ERROR: Model not loaded. Please ensure the model file exists."
+        return "ERROR: Model not loaded."
 
     if len(args) != len(FEATURE_NAMES):
-        return f"Prediction Error: Expected {len(FEATURE_NAMES)} inputs, but received {len(args)}."
+        return f"Error: Input count mismatch. Expected {len(FEATURE_NAMES)}, got {len(args)}."
 
     input_values = dict(zip(FEATURE_NAMES, args))
 
@@ -59,14 +57,12 @@ def predict_sales(*args):
         **Predicted {TARGET_NAME}**: **{prediction:.2f}** units
         """
     except Exception as e:
-        return f"Prediction Error: {e}"
+        return f"Predict Error: {e}"
 
 
 if not FEATURE_NAMES:
-    input_components = [
-        gr.Markdown(f"## Model Initialization Failed\nMetadata file not found or invalid: `{METADATA_PATH}`")
-    ]
-    description = "Model metadata could not be loaded. Check console for errors."
+    input_components = [gr.Markdown(f"## Init Fail\nMeta error: `{METADATA_PATH}`")]
+    description = "Metadata load error. Check console."
     model_name = "N/A"
 else:
     input_components = [gr.Slider(minimum=0, maximum=1000, value=500, label=f"{name}") for name in FEATURE_NAMES]
