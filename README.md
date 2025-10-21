@@ -33,19 +33,11 @@ Follow these steps to set up the environment, train the model, and run the web a
     ```
 ### 3. One time per clone
 
-1. Create .venv
+1. Create .venv, install dependencies and activate .venv
     ```
-    uv venv
+    make-venv-uv.bat
     ```
-2. Install dependencies
-    ```
-    uv sync
-    ```
-3. Activate venv
-    ```
-    .venv\Scripts\activate.bat
-    ```
-4. (Optional) Train a model (optional, a pre-trained model is available at models/1.0.0.joblib)
+2. (Optional) Train a model (optional, a pre-trained model is available at models/1.0.0.joblib)
     ```
     train_model.bat
     ```
